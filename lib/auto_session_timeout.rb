@@ -26,11 +26,11 @@ module AutoSessionTimeout
 
   def render_session_status
     response.headers["Etag"] = ""  # clear etags to prevent caching
-    render plain: !!current_user, status: 200
+    head :ok
   end
 
   def render_session_timeout
-    flash[:notice] = "Your session has timed out."
+    set_flash_message! :notice, timeout
     redirect_to new_user_session_path
   end
 
